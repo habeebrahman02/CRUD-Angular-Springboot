@@ -1,0 +1,62 @@
+<h2 style="text-align: center; color: #2c3e50; font-family: Arial, sans-serif;">Login</h2>
+
+<form #loginForm="ngForm" (ngSubmit)="onLogin()" novalidate
+      style="max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9; font-family: Arial, sans-serif;">
+
+  <!-- Email Field -->
+  <label style="display: block; margin-bottom: 5px;">Email:</label>
+  <input
+    [(ngModel)]="user.email"
+    name="email"
+    type="email"
+    required
+    email
+    #email="ngModel"
+    style="width: 100%; padding: 8px; margin-bottom: 5px; border-radius: 5px; border: 1px solid #ccc;"
+  />
+  <div *ngIf="email.invalid && (email.dirty || email.touched)" style="color: red; font-size: 13px; margin-bottom: 10px;">
+    <div *ngIf="email.errors?.['required']">Email is required.</div>
+    <div *ngIf="email.errors?.['email']">Invalid email format.</div>
+  </div>
+
+  <!-- Password Field -->
+  <label style="display: block; margin-bottom: 5px;">Password:</label>
+  <input
+    [(ngModel)]="user.password"
+    name="password"
+    type="password"
+    required
+    minlength="6"
+    #password="ngModel"
+    style="width: 100%; padding: 8px; margin-bottom: 5px; border-radius: 5px; border: 1px solid #ccc;"
+  />
+  <div *ngIf="password.invalid && (password.dirty || password.touched)" style="color: red; font-size: 13px; margin-bottom: 10px;">
+    <div *ngIf="password.errors?.['required']">Password is required.</div>
+    <div *ngIf="password.errors?.['minlength']">Password must be at least 6 characters.</div>
+  </div>
+
+  <!-- Buttons -->
+<div style="display: flex; justify-content: center; gap: 15px; margin-top: 20px;">
+  <button type="submit"
+          [disabled]="loginForm.invalid"
+          style="background-color: #27ae60; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+    Login
+  </button>
+
+  <button type="button" (click)="goToAddUser()"
+          style="background-color: #2980b9; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+    Add User
+  </button>
+
+  <button type="button" (click)="goToUserList()"
+          style="background-color: #8e44ad; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+    User List
+  </button>
+</div>
+
+
+  <!-- Error Message -->
+  <div *ngIf="loginError" style="color: red; text-align: center; margin-top: 10px;">
+    {{ loginError }}
+  </div>
+</form>
